@@ -932,7 +932,7 @@ class Game {
         ctx.save();
         ctx.translate(KEY_R_H_CENTER, KEY_VCENTER);
         ctx.scale(0.9 * KEY_D_2, 0.9 * KEY_D_2);
-        render_key_map(ctx, ['J', 'I', 'D', 'K']);
+        render_key_map(ctx, ['J', 'I', 'L', 'K']);
         ctx.restore();
 
 
