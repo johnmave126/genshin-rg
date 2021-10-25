@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<head>
+    <!-- meta -->
+    <title>原神音游参数试验</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- css -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+    <div id="loading" class="modal fade show" style="display: block;" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">加载资源中</h5>
+                </div>
+                <div class="modal-body">
+                    已加载<span id="loaded">0</span>/<span id="toload"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="settings" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">设置</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="ar-input" class="form-label">缩圈速度（AR）</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">AR <span id="ar-value">1.00</span></span>
+                            <input type="range" class="form-range form-control" min="0.2" max="6.0" step="0.05" value="1.0" id="ar-input">
+                        </div>
+                        <label for="od-input" class="form-label">判定难度（OD）</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">OD<span id="od-value">1.00</span></span>
+                            <input type="range" class="form-range form-control" min="0.2" max="6.0" step="0.05" value="1.0" id="od-input">
+                        </div>
+                    </div>
+                    <p>音符从出现到打击: <span id="ar-ms"></span>ms</p>
+                    <p>音符成功判定区间: <span id="od-ms"></span>ms</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="start-btn">开始游戏</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="pause" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">暂停</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="restart-btn" class="btn btn-secondary">重新开始</button>
+                    <button type="button" id="resume-btn" class="btn btn-primary">继续游戏</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show" id="backdrop" style="display: block;"></div>
+    <div id="container">
+        <div id="playarea">
+            <div id="toolbar">
+                <button id="pause-btn" type="button" class="btn my-btn">
+                    <div class="pause-btn"></div>
+                </button>
+            </div>
+            <canvas id="game"></canvas>
+        </div>
+    </div>
+
+    <!-- js -->
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript">
+        const game = new Game();
+        game.load_assets().then(() => {
+            close_modal('loading');
+            game.run();
+        });
+    </script>
+</body>
